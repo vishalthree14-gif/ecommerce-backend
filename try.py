@@ -127,12 +127,12 @@ def login_func():
     password = data.get('password')
 
     if not all([email, password]):
-        return jsonify({"error": "fill all the fields"}), 304
+        return jsonify({"error": "fill all the fields"}), 400
     
     db_data = find_user({"email": email})
 
     if not db_data:
-        return jsonify({"error":"user doesn't exist"}), 304
+        return jsonify({"error":"user doesn't exist"}), 404
     
     hash_pass = db_data['password']
 
@@ -574,6 +574,8 @@ def editCart():
 
 
 
-if __name__ == "__main__":
-    app.run(port=PORT, debug=True)
+# if __name__ == "__main__":
+#     app.run(port=PORT, debug=True)
 
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(PORT), debug=True)
